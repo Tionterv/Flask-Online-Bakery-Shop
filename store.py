@@ -56,8 +56,8 @@ db = SQLAlchemy(app)
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
-    result = Favquotes.query.all()
-    return render_template('index.html',result=result)
+    # result = Favquotes.query.all()
+    return render_template('index.html')
 
 
 # These are endpoints

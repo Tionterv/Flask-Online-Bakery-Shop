@@ -40,28 +40,28 @@ def login_attempt(user, password):
             conn.close()
 
 
-def query_order(orderid):
-    """ query parts from the parts table """
-    conn = None
-    try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
-        cur = conn.cursor()
-
-        sql = f"SELECT * FROM users WHERE orderid = '{orderid}''"
-        cur.execute(sql, (orderid))
-        rows = cur.fetchall()
-        print("---The Requested Order Is---\n")
-        for row in rows:
-            print(row)
-        cur.close()
-        return rows
-    except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
-    finally:
-        if conn is not None:
-            conn.close()
+# def query_order(orderid):
+#     """ query parts from the parts table """
+#     conn = None
+#     try:
+#         conn = psycopg2.connect(host = hostname,
+#         dbname = database,
+#         user= username,
+#         password = pwd,
+#         port = port_id)
+#
+#         cur = conn.cursor()
+#
+#         sql = f"SELECT * FROM users WHERE orderid = '{orderid}''"
+#         cur.execute(sql, (orderid))
+#         rows = cur.fetchall()
+#         print("---The Requested Order Is---\n")
+#         for row in rows:
+#             print(row)
+#         cur.close()
+#         return rows
+#     except (Exception, psycopg2.DatabaseError) as error:
+#         print(error)
+#     finally:
+#         if conn is not None:
+#             conn.close()
