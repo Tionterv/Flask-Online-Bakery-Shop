@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from functionz import login_attempt
+from functionz import update_product_price,delete_product
+#login_attempt,query_order,insert_address,insert_order,insert_product
 import psycopg2
 
 app = Flask(__name__)
@@ -43,15 +44,49 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # Commit function is need
 # conn.commit()
 
-x = login_attempt("bond007","password")
-print(x)
+# x = login_attempt("bond007","password")
+# print(x)
+#
+# y = query_order(2)
+# print(y)
+#
+# # Creating an SQLALCHEMY object
+# db = SQLAlchemy(app)
+#
+# print()
+# print()
+# print()
+# print()
+#
+# insert_address('Alop','Tampa','FL','31224')
+#
+# print()
+# print()
+# print()
+# print()
+#
+# insert_order('jojo17',4,12,5,'Alop','Tampa')
+#
+# print()
+# print()
+# print()
+# print()
+#
+# insert_product(42,1,'raq','pizza',421,'good')
+#
+# print()
+# print()
+# print()
+# print()
 
+update_product_price(1,324)
 
+print()
+print()
+print()
+print()
 
-# Creating an SQLALCHEMY object
-db = SQLAlchemy(app)
-
-
+delete_product(2)
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
