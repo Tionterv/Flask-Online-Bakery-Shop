@@ -1,7 +1,8 @@
 from flask import Flask, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+
 # from functionz import top_users,delete_product,update_product_price,login_attempt,query_order,insert_address,insert_order,insert_product,
-# top_stores,product_price
+# top_stores,product_price, query_products
 import psycopg2
 
 app = Flask(__name__)
@@ -10,29 +11,6 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost/sweetshop'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Database Information
-# hostname = 'localhost'
-# database = 'sweetshop'
-# username = 'postgres'
-# pwd = 'postgres'
-# port_id = 5432
-
-
-# Creating a cursor object so we can execute SELECT statemetns
-# cur = conn.cursor()
-
-# create_script = '''CREATE TABLE IF NOT EXISTS employee(
-#                 id int PRIMARY KEY,
-#                 name varchar(40) NOT NULL,
-#                 salary int,
-#                 dept_id varchar(30))'''
-
-# insert_script = 'INSERT INTO employee (id,name,salary,dept_id) VALUES (%s,%s,%s,%s)'
-# insert_value = (1,'James', 12000, 'D1')
-# cur.execute(insert_script, insert_value)
-
-# We use execute function to execute the actual scripts
-# cur.execute(create_script)
 
 # Commit function is need
 # conn.commit()
@@ -71,17 +49,23 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 
-@app.route('/process_login', methods =['POST'])
-def processLoginSignUp():
-    f_name = request.form.get('fname')
-    l_name = request.form.get('lname')
-    e_mail= request.form.get('email')
-    re_email = request.form.get('email2')
-    pass_word = request.form.get('password')
+# @app.route('/process_login', methods =['POST'])
+# def processLoginSignUp():
+#     user_name = request.form.get('userid')
+#     f_name = request.form.get('fname')
+#     l_name = request.form.get('lname')
+#     e_mail= request.form.get('email')
+#     re_email = request.form.get('email2')
+#     pass_word = request.form.get('password')
 
-    return redirect("http://127.0.0.1:5000/")
+    # name = f_name + " " + l_name
 
+    # insert_user(user_name, name, pass_word, e_mail)
+# insert_user("car","Jonny Crash","23432423a", "farr@hotmail.com")
 
+    # return redirect("http://127.0.0.1:5000/")
+
+# query_products(2)
 
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')

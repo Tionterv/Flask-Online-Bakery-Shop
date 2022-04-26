@@ -8,6 +8,65 @@ username = 'postgres'
 pwd = 'postgres'
 port_id = 5432
 
+
+def query_products(storeid):
+    """ query products based on storeid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+
+        sql = f"SELECT productid, name, foodtype, price, description FROM Products WHERE storeid = {storeid}"
+        cur.execute(sql)
+        products = cur.fetchall()
+        print("---The Requested Store Menu Is---\n")
+        for row in products:
+            print(row)
+        cur.close()
+        return products
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+# def insert_user(userid,name,pass,email):
+#     """ Inserts user into DB, if it does not already exist.
+#         Check console to see the SQL statement sent.
+#         Return Type: Boolean. IF TRUE: Success, do nothing | IF FALSE: Error, do nothing, we assume address exists if error.
+#     """
+#     conn = None
+#     try:
+#         conn = psycopg2.connect(host = hostname,
+#         dbname = database,
+#         user= username,
+#         password = pwd,
+#         port = port_id)
+#
+#         cur = conn.cursor()
+#         print()
+#         sql = f"INSERT INTO Users(userid,paymentid,name,pass,email) VALUES('{userid}',NULL,'{name}', '{pass}','{email}')"
+#         print("Insert user statement:\t" + sql)
+#         cur.execute(sql)
+#         #Commits official changes to DB SweetTooth
+#         conn.commit()
+#         #Close Connection
+#         cur.close()
+#         return True; #SUCCESS
+#     except (Exception, psycopg2.DatabaseError) as error:
+#         print(error)
+#         return False; #Exists, or worse...
+#     finally:
+#         if conn is not None:
+#             conn.close()
+
 def top_stores():
     """ Returns tuples of top stores, by money earned in orders.
         Check console for log of info.
