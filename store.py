@@ -1,5 +1,6 @@
 from flask import Flask, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
+from functionz import insert_user
 
 # from functionz import top_users,delete_product,update_product_price,login_attempt,query_order,insert_address,insert_order,insert_product,
 # top_stores,product_price, query_products
@@ -12,58 +13,21 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
-# Commit function is need
-# conn.commit()
+@app.route('/process_login', methods =['POST'])
+def processLoginSignUp():
+    user_name = request.form.get('userid')
+    f_name = request.form.get('fname')
+    l_name = request.form.get('lname')
+    e_mail= request.form.get('email')
+    re_email = request.form.get('email2')
+    pass_word = request.form.get('password')
 
-# x = login_attempt("bond007","password")
-# print(x)
+    name = f_name + " " + l_name
 
-# y = query_order(2)
-# print(y)
-
-# insert_address('Alop','Tampa','FL','31224')
-
-# insert_order('jojo17',4,12,5,'Alop','Tampa')
-
-# insert_product(42,1,'raq','pizza',421,'good')
-
-# update_product_price(1,324)
-
-# delete_product(2)
-
-# top_users()
-
-# print(str(product_price(19)))
-
-# top_stores()
-
-# delete_product(5)
-
-# product_price(2)
+    insert_user(user_name, name, pass_word, e_mail)
 
 
-#
-# @app.route('/process-contact', methods = ['POST'])
-# def processContact():
-#     first_name = request.form.get('')
-
-
-
-# @app.route('/process_login', methods =['POST'])
-# def processLoginSignUp():
-#     user_name = request.form.get('userid')
-#     f_name = request.form.get('fname')
-#     l_name = request.form.get('lname')
-#     e_mail= request.form.get('email')
-#     re_email = request.form.get('email2')
-#     pass_word = request.form.get('password')
-
-    # name = f_name + " " + l_name
-
-    # insert_user(user_name, name, pass_word, e_mail)
-# insert_user("car","Jonny Crash","23432423a", "farr@hotmail.com")
-
-    # return redirect("http://127.0.0.1:5000/")
+    return redirect("http://127.0.0.1:5000/")
 
 # query_products(2)
 
