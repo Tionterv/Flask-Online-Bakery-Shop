@@ -3,7 +3,7 @@
 <head>
     <meta chartset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Product Page</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="web_design.css">
 </head>
@@ -17,7 +17,7 @@
         .your-mom {
             background-color: #3399ff;
             color: white;
-            font-size: 17px;
+            font-size: 20px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         } 
 
@@ -60,7 +60,7 @@
         .butts {
             color: #3399ff;
             border-color: #c6e2ff;
-            font-size: 18px;
+            font-size: 20px;
             /* height: 60px; */
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
@@ -72,7 +72,7 @@
 
         .peepee_name {
             padding-top: 10px;
-            font-size: 20px;         
+            font-size: 25px;         
             color: #808080;
             font-weight: bold;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -81,7 +81,7 @@
         .peepee_other {
             padding-bottom: 10px;            
             color: #999999; 
-            font-size: 20px; 
+            font-size: 25px; 
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -104,12 +104,8 @@
             padding-bottom: 15px;
         }
 
-        .drop_menu {            
-            color: black; 
-            font-family: "Comic Sans MS", "Comic Sans", cursive;
-        }
-
     </style>
+
     <div class="row sweet-tooth justify-content-center align-items-center">
         Sweet Tooth, Inc.
     </div>
@@ -138,7 +134,6 @@
         <p class="padding">
             <!-- empty space -->
         </p>
-
         <div class="transition">
         <div class="container">
             <div class="row deez-nuts padding justify-content-left align-items-left">
@@ -146,17 +141,24 @@
             </div>
             <div class="row border-top">
                 <div class="col-sm-4 padding">
-                    <center><img src="chocolate_chip_cockies.jpg" alt="weenies", width="300", height="250"/>
-                    </center> 
+                    <center>
+                        
+                        <img src="strawberry_chews.png" alt="weenies", width="300", height="250"/>
+                        
+                </center> 
                 </div>    
-                <div class="col">
-                    <p class="peepee_name">Choc-hoe-late Chip Cookies</p>
-                    <p class="peepee_other">$20.00</p>
+                <div class="col-md-6"> 
+                    <p class="peepee_name">Sample Product</p>
+                    <p class="peepee_other">$XX.00</p>
+                    <p class="peepee_desc">Some cheesy ass description about our sexy prouct here blah blah 
+                        yeehaw weewoo extra cheese on that sir? No thank you I'm emo.
+                        Eeeeeeeh. Eeeeeeeeeeeeeeeeeeh! ora ora ora ora ora ora ora
+                    </p>
                     <div class="dropdown">
                         <button class="btn dropdown-toggle peepee_desc" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                           Quantity
                         </button>
-                        <ul class="dropdown-menu drop_menu" aria-labelledby="dropdownMenuButton1">
+                        <ul class="dropdown-menu peepee_desc" aria-labelledby="dropdownMenuButton1">
                           <li><a class="dropdown-item" href="#">1</a></li>
                           <li><a class="dropdown-item" href="#">2</a></li>
                           <li><a class="dropdown-item" href="#">3</a></li>
@@ -171,77 +173,37 @@
                     </div>
                     <div class="row padding">
                         <div class="col">
-                            <button id="delete1" class="btn butts">
-                                Delete
+                            <button id="add2cart" class="btn your-mom">
+                                Add to Cart
                             </button>
                             <script type="text/javascript">
-                                document.getElementById("delete1").onclick = function () {
+                                document.getElementById("add2cart").onclick = function () {
                                     location.href = "sumting_wrong.html";
                                 };
-                            </script> 
-                            <button id="save1" class="btn butts">
-                                Save for Later
+                            </script>
+                            <button id="buynow" class="btn your-mom">
+                                Buy Now!
                             </button>
                             <script type="text/javascript">
-                                document.getElementById("save1").onclick = function () {
+                                document.getElementById("buynow").onclick = function () {
                                     location.href = "sumting_wrong.html";
                                 };
-                            </script> 
-                        </div>                          
-                    </div>
-                </div>
-            </div>
-            <div class="row border-top">
-                <div class="col-sm-4 padding">
-                    <center><img src="strawberry_chews.png" alt="weenies", width="300", height="250"/>
-                    </center> 
-                </div>    
-                <div class="col">
-                    <p class="peepee_name">Strawberry Chews</p>
-                    <p class="peepee_other">$18.00</p>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle peepee_desc" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Quantity
-                        </button>
-                        <ul class="dropdown-menu drop_menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">1</a></li>
-                          <li><a class="dropdown-item" href="#">2</a></li>
-                          <li><a class="dropdown-item" href="#">3</a></li>
-                          <li><a class="dropdown-item" href="#">4</a></li>
-                          <li><a class="dropdown-item" href="#">5</a></li>
-                          <li><a class="dropdown-item" href="#">6</a></li>
-                          <li><a class="dropdown-item" href="#">7</a></li>
-                          <li><a class="dropdown-item" href="#">8</a></li>
-                          <li><a class="dropdown-item" href="#">9</a></li>
-                          <li><a class="dropdown-item" href="#">10</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="row padding">
-                        <div class="col">
-                            <button id="delete2" class="btn butts">
-                                Delete
-                            </button>
-                            <script type="text/javascript">
-                                document.getElementById("delete2").onclick = function () {
-                                    location.href = "sumting_wrong.html";
-                                };
-                            </script> 
-                            <button id="save2" class="btn butts">
-                                Save for Later
-                            </button>
-                            <script type="text/javascript">
-                                document.getElementById("save2").onclick = function () {
-                                    location.href = "sumting_wrong.html";
-                                };
-                            </script> 
+                            </script>                            
                         </div>                          
                     </div>
                 </div>
             </div>
             <div class="row padding">
                 <div class="col padding">
-                    <button type="button" class="btn butts">Checkout</button>
+                    <center><button id="checkout" class="btn your-mom">
+                        Checkout
+                    </button></center>
+                    <script type="text/javascript">
+                        document.getElementById("checkout").onclick = function () {
+                            location.href = "sumting_wrong.html";
+                        };
+                    </script>   
+                    <!-- <button type="button" class="btn your-mom">Checkout</button></center> -->
                 </div>
             </div>
         </div>

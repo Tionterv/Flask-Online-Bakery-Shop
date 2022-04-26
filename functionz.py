@@ -8,6 +8,74 @@ username = 'postgres'
 pwd = 'postgres'
 port_id = 5432
 
+def top_stores():
+    """ Returns tuples of top stores, by money earned in orders.
+        Check console for log of info.
+        Return Type: List of Tuples.
+        Tuple format: (STORENAME, TOTALREVENUE)
+    """
+
+    conn = None
+    stores = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+        sql = "SELECT stores.name, sum(totalcost) as totalrevenue FROM Stores JOIN (SELECT products.productid, products.storeid, totalcost FROM Products JOIN Orders on products.productid = orders.productid)tb ON stores.storeid = tb.storeid GROUP by stores.name ORDER BY totalrevenue DESC"
+        print("Top stores statement:\t" + sql)
+        cur.execute(sql)
+        stores = cur.fetchall()
+        print("Output for the SQL statement:\n")
+        for row in stores:
+          print(row)
+        #Close Connection
+        cur.close()
+        return stores
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return None
+    finally:
+        if conn is not None:
+            conn.close()
+
+def top_users():
+    """ Returns tuples of top users, by money spent.
+        Check console for log of info.
+        Return Type: List of Tuples.
+        Tuple format: (NAME, EMAIL, TOTALSPENT)
+    """
+
+    conn = None
+    users = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+        sql = "SELECT users.name, email, sum(totalcost) as totalspent FROM Users JOIN Orders ON users.userid = orders.userid GROUP by users.name, users.email ORDER BY totalspent DESC"
+        print("Top customers statement:\t" + sql)
+        cur.execute(sql)
+        users = cur.fetchall()
+        print("Output for the SQL statement:\n")
+        for row in users:
+          print(row)
+        #Close Connection
+        cur.close()
+        return users
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return None
+    finally:
+        if conn is not None:
+            conn.close()
+
 def login_attempt(user, password):
     """ query parts from the parts table """
     conn = None
@@ -36,7 +104,6 @@ def login_attempt(user, password):
     finally:
         if conn is not None:
             conn.close()
-
 
 def query_order(orderid):
     """ query orders based on orderid
@@ -129,7 +196,7 @@ def insert_order(userid, productid, quantity, totalcost, street, city):
         if conn is not None:
             conn.close()
 
-def insert_product(productid, storeid, name, foodtype, price, description): #TO BE FINISHED
+def insert_product(productid, storeid, name, foodtype, price, description):
     """ Inserts product into DB.
         NOTE: storeid has to be existent in DB..
         Check console for log of info.
@@ -159,7 +226,6 @@ def insert_product(productid, storeid, name, foodtype, price, description): #TO 
     finally:
         if conn is not None:
             conn.close()
-
 
 def update_product_price(productid, new_price):
     """ UPDATES product price in DB.
@@ -192,8 +258,7 @@ def update_product_price(productid, new_price):
         if conn is not None:
             conn.close()
 
-
-def delete_product(productid): #TO BE FINISHED
+def delete_product(productid):
     """ Deletes product from DB based on productid.
         Check console for log of info.
         Return Type: Boolean. IF TRUE: Success, do nothing | IF FALSE: Error, give something-wrong.html.
@@ -208,7 +273,7 @@ def delete_product(productid): #TO BE FINISHED
         port = port_id)
 
         cur = conn.cursor()
-        sql = f"DELETE FROM products WHERE productid = {productid}"
+        sql = f"DELETE FROM products CASCADE WHERE productid = {productid}"
         print("Delete product statement:\t" + sql)
         cur.execute(sql)
         #Commits official changes to DB SweetTooth
@@ -219,6 +284,38 @@ def delete_product(productid): #TO BE FINISHED
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         return False; #FAILURE
+    finally:
+        if conn is not None:
+            conn.close()
+
+def product_price(productid):
+    """ Returns float value of a price for a product, since we need this to compute for insert_order().
+        Check console for log of info.
+        Return Type: Float.
+    """
+
+    conn = None
+    price = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+        sql = f"SELECT price FROM Products WHERE productid = {productid}"
+        print("Product price statement:\t" + sql)
+        cur.execute(sql)
+        price = float(cur.fetchone()[0])
+        print("Output for the SQL statement:\n")
+        print("Price is : " + str(price))
+        #Close Connection
+        cur.close()
+        return price
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        return price
     finally:
         if conn is not None:
             conn.close()

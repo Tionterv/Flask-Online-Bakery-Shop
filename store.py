@@ -1,7 +1,7 @@
 from flask import Flask, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from functionz import update_product_price,delete_product
-#login_attempt,query_order,insert_address,insert_order,insert_product
+# from functionz import top_users,delete_product,update_product_price,login_attempt,query_order,insert_address,insert_order,insert_product,
+# top_stores,product_price
 import psycopg2
 
 app = Flask(__name__)
@@ -17,13 +17,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 # pwd = 'postgres'
 # port_id = 5432
 
-# conn is the connection object
-# conn = psycopg2.connect(
-#             host = hostname,
-#             dbname = database,
-#             user= username,
-#             password = pwd,
-#             port = port_id)
 
 # Creating a cursor object so we can execute SELECT statemetns
 # cur = conn.cursor()
@@ -46,53 +39,48 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # x = login_attempt("bond007","password")
 # print(x)
-#
+
 # y = query_order(2)
 # print(y)
-#
-# # Creating an SQLALCHEMY object
-# db = SQLAlchemy(app)
-#
-# print()
-# print()
-# print()
-# print()
-#
+
 # insert_address('Alop','Tampa','FL','31224')
-#
-# print()
-# print()
-# print()
-# print()
-#
+
 # insert_order('jojo17',4,12,5,'Alop','Tampa')
-#
-# print()
-# print()
-# print()
-# print()
-#
+
 # insert_product(42,1,'raq','pizza',421,'good')
+
+# update_product_price(1,324)
+
+# delete_product(2)
+
+# top_users()
+
+# print(str(product_price(19)))
+
+# top_stores()
+
+# delete_product(5)
+
+# product_price(2)
+
+
 #
-# print()
-# print()
-# print()
-# print()
+# @app.route('/process-contact', methods = ['POST'])
+# def processContact():
+#     first_name = request.form.get('')
 
-update_product_price(1,324)
 
-print()
-print()
-print()
-print()
 
-delete_product(2)
+
+
+
+
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
-    return render_template('index.html')
+    return render_template('doodoobase.html')
 
 
 # These are endpoints
@@ -108,7 +96,6 @@ def cart():
 
 @app.route('/contact_us')
 def contact():
-    print(request.args)
     return render_template('contact_us.html')
 
 @app.route('/login_signup')
@@ -119,13 +106,16 @@ def login():
 def ma():
     return render_template('prodicks.html')
 
-# A GET message is send, and the server returns data. POST. Used to send HTML form data to the server.
-@app.route('/process', methods = ['POST'])
-def process():
-    author = request.form['fname']
+@app.route('/product')
+def product():
+    return render_template('product_page.html')
 
-    # redirects user to the homepage when form is submitted
-    return redirect(url_for('index.html'))
+@app.route('/error')
+def error():
+    return render_template('sumting_wrong.html')
+
+
+
 
 # cur.close()
 # conn.close()
