@@ -71,7 +71,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 
+@app.route('/process_login', methods =['POST'])
+def processLoginSignUp():
+    f_name = request.form.get('fname')
+    l_name = request.form.get('lname')
+    e_mail= request.form.get('email')
+    re_email = request.form.get('email2')
+    pass_word = request.form.get('password')
 
+    return redirect("http://127.0.0.1:5000/")
 
 
 
@@ -81,7 +89,6 @@ def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
     return render_template('doodoobase.html')
-
 
 # These are endpoints
 # What the applications will be responding with if they go to the
