@@ -1,6 +1,7 @@
 from flask import Flask, render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
-from functionz import insert_user
+# from functionz import insert_user
+from functionz import *
 
 # from functionz import top_users,delete_product,update_product_price,login_attempt,query_order,insert_address,insert_order,insert_product,
 # top_stores,product_price, query_products
@@ -31,26 +32,25 @@ def processLoginSignUp():
 
 # query_products(2)
 
-
-###############################################
-# For testing purposes only
-#
-#
-@app.route('/a')
-def a():
-    return render_template('l.html')
-#
-#
-###############################################
-
-
-
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
     return render_template('doodoobase.html')
+
+@app.route('/add-products', methods=['POST'])
+def addTingzToCart():
+    global nameParam
+    userid = request.form.get('userid')
+    productid = int(request.form.get('productid'))
+    quantity = int(request.form.get('quantitty'))
+    totalcost = int(request.form.get('price_item'))
+    street = request.form.get('userstreet')
+    city = request.form.get('usercity')
+    insert_order(userid, productid, quantity, totalcost, street, city)
+    return redirect(url_for('prodicks'))
+
 
 # These are endpoints
 # What the applications will be responding with if they go to the
@@ -73,7 +73,13 @@ def login():
 
 @app.route('/prodicks')
 def ma():
-    return render_template('prodicks.html')
+    ##### replace these with actual database call: ##############
+    # itemInfo = db.getItems(storeid)
+
+    product_list = query_products(1)
+    # product_tags = ("chocolate_chip_cockies", 1234, 20) #display name, tag name, productid, price
+    # itemInfo = db.getItems(storeid) # get list of all items in db
+    return render_template('prodicks.html', product_list=product_list)
 
 @app.route('/product')
 def product():
