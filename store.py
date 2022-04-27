@@ -45,11 +45,11 @@ def addTingzToCart():
     userid = request.form.get('userid')
     productid = int(request.form.get('productid'))
     quantity = int(request.form.get('quantitty'))
-    totalcost = int(request.form.get('price_item'))
+    totalcost = float(request.form.get('price_item'))
     street = request.form.get('userstreet')
     city = request.form.get('usercity')
     insert_order(userid, productid, quantity, totalcost, street, city)
-    return redirect(url_for('prodicks'))
+    return redirect("http://127.0.0.1:5000/prodicks")
 
 
 # These are endpoints
