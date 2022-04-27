@@ -31,6 +31,20 @@ def processLoginSignUp():
 
 # query_products(2)
 
+
+###############################################
+# For testing purposes only
+#
+#
+@app.route('/a')
+def a():
+    return render_template('l.html')
+#
+#
+###############################################
+
+
+
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
