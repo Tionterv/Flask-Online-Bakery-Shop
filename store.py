@@ -15,34 +15,64 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 store_id = 0
 
+
 @app.route('/process_login', methods =['POST'])
-def processLoginSignUp():
-    user_name = request.form.get('userid')
-    f_name = request.form.get('fname')
-    l_name = request.form.get('lname')
-    e_mail= request.form.get('email')
-    re_email = request.form.get('email2')
-    pass_word = request.form.get('password')
+def process_login():
+    username = request.form.get('userid')
+    assword = request.form.get('password')
 
-    name = f_name + " " + l_name
+    flag = login_attempt(username, assword)
 
-    # checks if the information entered is valid
-    if user_name == "" or f_name == "" or l_name == "" or e_mail == "" or re_email == "" or pass_word == "" or e_mail != re_email:
-        return redirect("http://127.0.0.1:5000/error")
+    return render_template("login.html", flag=flag, username=username)
+
+@app.route('/process_signup', methods =['POST'])
+def process_signup():
+    username = request.form.get('userid')
+    name = request.form.get('name')
+    email= request.form.get('email')
+    assword = request.form.get('password')
+    insert_user(username, name, assword, email)
+
+    if username == "" or name == "" or email == "" or assword == "":
+        flag = 0
+    else:
+        flag = 1
+    
+    return render_template("signup.html", flag=flag, username=username)
+    
+    
+    # return redirect("http://127.0.0.1:5000/error")
+    
+    return render_template("signup.html", username=username)
+
+    # user_name = request.form.get('userid')
+    # f_name = request.form.get('fname')
+    # l_name = request.form.get('lname')
+    # e_mail= request.form.get('email')
+    # re_email = request.form.get('email2')
+    # pass_word = request.form.get('password')
+
+    # name = f_name + " " + l_name
+
+    # # checks if the information entered is valid
+    # if user_name == "" or f_name == "" or l_name == "" or e_mail == "" or re_email == "" or pass_word == "" or e_mail != re_email:
+    #     return redirect("http://127.0.0.1:5000/error")
 
     
-    insert_user(user_name, name, pass_word, e_mail)
+    # insert_user(user_name, name, pass_word, e_mail)
 
 
-    return redirect("http://127.0.0.1:5000/")
+    # return redirect("http://127.0.0.1:5000/")
 
 # query_products(2)
+
 
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
+
 
     return render_template('doodoobase.html')
 @app.route('/store_find',methods=['POST','GET'])
@@ -89,11 +119,12 @@ def checkout():
     userid = "bond007"
     checkout_items = query_order(userid)
     user_info = query_user(userid)
-    paymentid = request.form.get('paymentid')
-    payment_shit = query_payment(paymentid)
+    payment_shit = query_payment(userid)
     total_cost = get_total(userid)
+    # print("\nyour mom weewoo {}\n\n".format(total_cost))
+    
     #make new page that says checkout is successful
-    return render_template('doodoobase.html')
+    return render_template('success.html', checkout_items=checkout_items, user_info=user_info, payment_shit=payment_shit, total_cost=total_cost)
 
 # These are endpoints
 # What the applications will be responding with if they go to the
@@ -117,10 +148,10 @@ def cart():
 def contact():
     return render_template('contact_us.html')
 
-@app.route('/login_signup')
-def login():
+# @app.route('/login_signup')
+# def login():
 
-    return render_template('login_signup.html')
+#     return render_template('login_signup.html')
 
 @app.route('/prodicks', methods=['GET', 'POST'])
 def ma():
@@ -135,6 +166,14 @@ def ma():
 @app.route('/product')
 def product():
     return render_template('product_page.html')
+
+@app.route('/success')
+def success():
+    return render_template('success.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.html')    
 
 @app.route('/error')
 def error():

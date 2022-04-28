@@ -15,12 +15,7 @@ def query_products(storeid):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
         cur = conn.cursor()
 
         sql = f"SELECT productid, name, foodtype, price, description FROM Products WHERE storeid = {storeid}"
@@ -44,11 +39,7 @@ def insert_user(userid,name,password,email):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         print()
@@ -77,11 +68,7 @@ def top_stores():
     conn = None
     stores = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = "SELECT stores.name, sum(totalcost) as totalrevenue FROM Stores JOIN (SELECT products.productid, products.storeid, totalcost FROM Products JOIN Orders on products.productid = orders.productid)tb ON stores.storeid = tb.storeid GROUP by stores.name ORDER BY totalrevenue DESC"
@@ -101,21 +88,18 @@ def top_stores():
         if conn is not None:
             conn.close()
 
-def query_payment(paymentid):
+def query_payment(userid):
     """ query payments based on paymentid
         See console for printed info
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
 
-        sql = f"SELECT * FROM Payments WHERE paymentid = {paymentid}"
+        # sql = f"SELECT * FROM Payments WHERE paymentid = '{paymentid}'"
+        sql = f"SELECT paymenttype FROM users INNER JOIN payments ON userid = '{userid}' AND users.paymentid = payments.paymentid"
         cur.execute(sql)
         payments = cur.fetchall()
         # print("---The Requested Store Menu Is---\n")
@@ -135,15 +119,11 @@ def get_total(userid):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
 
-        sql = f"SELECT sum(totalcost) FROM orders WHERE userid = {userid}"
+        sql = f"SELECT sum(totalcost) FROM orders WHERE userid = '{userid}'"
         cur.execute(sql)
         payments = cur.fetchall()
         # print("---The Requested Store Menu Is---\n")
@@ -163,15 +143,11 @@ def query_user(userid):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
 
-        sql = f"SELECT * FROM users WHERE userid = {userid}"
+        sql = f"SELECT * FROM users WHERE userid = '{userid}'"
         cur.execute(sql)
         users = cur.fetchall()
         # print("---The Requested Store Menu Is---\n")
@@ -195,11 +171,7 @@ def top_users():
     conn = None
     users = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = "SELECT users.name, email, sum(totalcost) as totalspent FROM Users JOIN Orders ON users.userid = orders.userid GROUP by users.name, users.email ORDER BY totalspent DESC"
@@ -223,11 +195,7 @@ def login_attempt(user, password):
     """ query parts from the parts table """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = f"SELECT * FROM users WHERE userid = '{user}' AND pass = '{password}'"
@@ -254,12 +222,7 @@ def query_order(userid):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
         cur = conn.cursor()
 
         sql = f"SELECT * FROM orders WHERE userid = '{userid}'"
@@ -284,12 +247,7 @@ def insert_address(street, city, state, zipcode):
     """
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
         cur = conn.cursor()
         print()
         sql = f"INSERT INTO addresses(street,city,state,zipcode) VALUES ('{street}','{city}','{state}','{zipcode}')"
@@ -318,13 +276,9 @@ def insert_order(userid, productid, quantity, totalcost, street, city):
 
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
         cur = conn.cursor()
+
         sql = f"INSERT INTO orders(userid, productid, quantity, totalcost, street, city) VALUES ('{userid}',{productid},{quantity},{totalcost},'{street}','{city}')"
         print("Insert order statement:\t" + sql)
         cur.execute(sql)
@@ -349,11 +303,7 @@ def insert_product(productid, storeid, name, foodtype, price, description):
 
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = f"INSERT INTO products(productid, storeid, name, foodtype, price, description) VALUES ({productid},{storeid},'{name}','{foodtype}',{price},'{description}')"
@@ -380,12 +330,7 @@ def update_product_price(productid, new_price):
 
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
-
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
         cur = conn.cursor()
         sql = f"UPDATE products SET price = {new_price} WHERE productid = {productid}"
         print("Update product price statement:\t" + sql)
@@ -410,11 +355,7 @@ def delete_order(orderid):
 
     conn = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = f"DELETE FROM orders CASCADE WHERE orderid = {orderid}"
@@ -442,11 +383,7 @@ def product_price(productid):
     conn = None
     price = None
     try:
-        conn = psycopg2.connect(host = hostname,
-        dbname = database,
-        user= username,
-        password = pwd,
-        port = port_id)
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
 
         cur = conn.cursor()
         sql = f"SELECT price FROM Products WHERE productid = {productid}"
