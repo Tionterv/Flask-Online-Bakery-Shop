@@ -25,6 +25,11 @@ def processLoginSignUp():
 
     name = f_name + " " + l_name
 
+    # checks if the information entered is valid
+    if user_name == "" or f_name == "" or l_name == "" or e_mail == "" or re_email == "" or pass_word == "" or e_mail != re_email:
+        return redirect("http://127.0.0.1:5000/error")
+
+    
     insert_user(user_name, name, pass_word, e_mail)
 
 
@@ -61,7 +66,9 @@ def quotes():
 
 @app.route('/cart')
 def cart():
-    return render_template('cart.html')
+    cart_items = query_order("bond007") #TESTING
+    print(cart_items)
+    return render_template('cart.html', cart_items=cart_items )
 
 @app.route('/contact_us')
 def contact():
@@ -69,6 +76,7 @@ def contact():
 
 @app.route('/login_signup')
 def login():
+
     return render_template('login_signup.html')
 
 @app.route('/prodicks')

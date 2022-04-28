@@ -143,32 +143,21 @@
         <div class="container">
             <div class="row deez-nuts padding justify-content-left align-items-left">
                 Your Cart
-            </div>
+            </div> 
+            {% for doodoo in cart_items %}
             <div class="row border-top">
+                {{ doodoo }}
                 <div class="col-sm-4 padding">
-                    <center><img src="../static/chocolate_chip_cockies.jpg" alt="weenies", width="300", height="250"/>
+                    <center><img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
                     </center>
                 </div>
                 <div class="col">
-                    <!-- <p class="peepee_name">Choc-hoe-late Chip Cookies</p>
-                    <p class="peepee_other">$20.00</p>
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle peepee_desc" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                          Quantity
-                        </button>
-                        <ul class="dropdown-menu drop_menu" aria-labelledby="dropdownMenuButton1">
-                          <li><a class="dropdown-item" href="#">1</a></li>
-                          <li><a class="dropdown-item" href="#">2</a></li>
-                          <li><a class="dropdown-item" href="#">3</a></li>
-                          <li><a class="dropdown-item" href="#">4</a></li>
-                          <li><a class="dropdown-item" href="#">5</a></li>
-                          <li><a class="dropdown-item" href="#">6</a></li>
-                          <li><a class="dropdown-item" href="#">7</a></li>
-                          <li><a class="dropdown-item" href="#">8</a></li>
-                          <li><a class="dropdown-item" href="#">9</a></li>
-                          <li><a class="dropdown-item" href="#">10</a></li>
-                        </ul>
-                    </div>
+                    
+                    <p class="peepee_name">{{ doodoo[1] }}</p>
+                  
+                    <p class="peepee_other">${{ doodoo[2] }}</p>
+                  
+                    <p class="peepee_other">${{ doodoo[3] }}</p>
                     <div class="row padding">
                         <div class="col">
                             <button id="delete1" class="btn butts">
@@ -179,18 +168,12 @@
                                     location.href = "sumting_wrong.html";
                                 };
                             </script>
-                            <button id="save1" class="btn butts">
-                                Save for Later
-                            </button>
-                            <script type="text/javascript">
-                                document.getElementById("save1").onclick = function () {
-                                    location.href = "sumting_wrong.html";
-                                };
-                            </script> -->
-                        <!-- </div> -->
-                    <!-- </div> -->
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
+            {% endfor %}
             <div class="row padding">
                 <div class="col padding">
                     <button type="button" class="btn butts">Checkout</button>

@@ -26,9 +26,9 @@ def query_products(storeid):
         sql = f"SELECT productid, name, foodtype, price, description FROM Products WHERE storeid = {storeid}"
         cur.execute(sql)
         products = cur.fetchall()
-        print("---The Requested Store Menu Is---\n")
-        for row in products:
-            print(row)
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
         cur.close()
         return products
     except (Exception, psycopg2.DatabaseError) as error:
@@ -164,7 +164,7 @@ def login_attempt(user, password):
         if conn is not None:
             conn.close()
 
-def query_order(orderid):
+def query_order(userid):
     """ query orders based on orderid
         We could also do this based off userid instead... might be better.
     """
@@ -178,16 +178,17 @@ def query_order(orderid):
 
         cur = conn.cursor()
 
-        sql = f"SELECT * FROM orders WHERE orderid = {orderid}"
+        sql = f"SELECT * FROM orders WHERE userid = '{userid}'"
         cur.execute(sql)
         rows = cur.fetchall()
-        print("---The Requested Order Is---\n")
-        for row in rows:
-            print(row)
+        # print("---The Requested Order Is---\n")
+        # for row in rows:
+        #     print(row)
         cur.close()
         return rows
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
+        print("doodooo query shit not working")
     finally:
         if conn is not None:
             conn.close()
