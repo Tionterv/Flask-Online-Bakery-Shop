@@ -56,6 +56,12 @@ def addTingzToCart():
     insert_order(userid, productid, quantity, totalcost, street, city)
     return redirect("http://127.0.0.1:5000/prodicks")
 
+@app.route('/delete-products' , methods=['GET', 'POST'])
+def removeTingsFromCart():
+    productid = int(request.form.get('productid'))
+    delete_product(productid)
+    return render_template("cart.html")
+    # return render_template("http://127.0.0.1:5000/cart")
 
 # These are endpoints
 # What the applications will be responding with if they go to the
@@ -68,7 +74,7 @@ def quotes():
 def cart():
     cart_items = query_order("bond007") #TESTING
     print(cart_items)
-    return render_template('cart.html', cart_items=cart_items )
+    return render_template('cart.html', cart_items=cart_items)
 
 @app.route('/contact_us')
 def contact():

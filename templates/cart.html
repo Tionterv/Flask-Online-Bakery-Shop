@@ -146,30 +146,43 @@
             </div> 
             {% for doodoo in cart_items %}
             <div class="row border-top">
-                {{ doodoo }}
                 <div class="col-sm-4 padding">
                     <center><img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
                     </center>
                 </div>
                 <div class="col">
-                    
+                    <!-- product id, should update to user name -  ->
                     <p class="peepee_name">{{ doodoo[1] }}</p>
-                  
+                    <!-- quantity -->
                     <p class="peepee_other">${{ doodoo[2] }}</p>
-                  
+                    <!-- price  -->
                     <p class="peepee_other">${{ doodoo[3] }}</p>
-                    <div class="row padding">
+                    <center>
+                        <form action="/delete-products" method="post">
+                        <img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
+                        <p class="peepee_name"> {{ doodoo[1] }}</p>
+                        <input type="hidden" name="productid" value="{{ doodoo[1] }}"/>
+                        <div class="custom-select" style="width:200px;">
+                        </div>
+                        <button type="submit" class="btn your-mom">
+                            Delete this shit
+                        </button>
+                    </center></form>
+
+
+
+                    <!-- <div class="row padding">
                         <div class="col">
                             <button id="delete1" class="btn butts">
                                 Delete
                             </button>
                             <script type="text/javascript">
-                                document.getElementById("delete1").onclick = function () {
+                                document.getElementByI ("delete1").onclick = function () {
                                     location.href = "sumting_wrong.html";
                                 };
                             </script>
                         </div>
-                    </div>
+                    </div> -->
                     
                 </div>
             </div>
