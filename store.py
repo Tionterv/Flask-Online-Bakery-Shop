@@ -38,6 +38,13 @@ def processLoginSignUp():
 
 # query_products(2)
 
+# Route decorator tells Flask what url to use to trigger a function
+@app.route('/')
+def index():
+    # fetches all the records in the Favquotes table and stores them in the result variable
+    # result = Favquotes.query.all()
+
+    return render_template('doodoobase.html')
 @app.route('/store_find',methods=['POST','GET'])
 def store_find():
     global store_id
@@ -50,14 +57,6 @@ def store_find():
         product_list = query_products(store_id)
     product_list = query_products(stoopidstore)
     return render_template('prodicks.html',product_list=product_list, stoopidstore=stoopidstore)
-
-# Route decorator tells Flask what url to use to trigger a function
-@app.route('/')
-def index():
-    # fetches all the records in the Favquotes table and stores them in the result variable
-    # result = Favquotes.query.all()
-
-    return render_template('doodoobase.html')
 
 @app.route('/add-products', methods=['POST'])
 def addTingzToCart():
@@ -79,12 +78,22 @@ def addTingzToCart():
 
 @app.route('/delete-products' , methods=['GET', 'POST'])
 def removeTingsFromCart():
-    productid = int(request.form.get('productid'))
-    delete_order(productid)
-    return render_template("cart.html")
+    orderid = int(request.form.get('orderid'))
+    delete_order(orderid)
+    return redirect("/cart")
     # return render_template("http://127.0.0.1:5000/cart")
 # delete_product(2)
 
+@app.route('/checkout',methods=['POST','GET'])
+def checkout():
+    userid = "bond007"
+    checkout_items = query_order(userid)
+    user_info = query_user(userid)
+    paymentid = request.form.get('paymentid')
+    payment_shit = query_payment(paymentid)
+    total_cost = get_total(userid)
+    #make new page that says checkout is successful
+    return render_template('doodoobase.html')
 
 # These are endpoints
 # What the applications will be responding with if they go to the
@@ -99,7 +108,8 @@ def menu():
 
 @app.route('/cart')
 def cart():
-    cart_items = query_order("bond007") #TESTING
+    username = "bond007"
+    cart_items = query_order(username) #TESTING
     print(cart_items)
     return render_template('cart.html', cart_items=cart_items)
 

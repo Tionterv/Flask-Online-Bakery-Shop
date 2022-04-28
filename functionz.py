@@ -101,6 +101,90 @@ def top_stores():
         if conn is not None:
             conn.close()
 
+def query_payment(paymentid):
+    """ query payments based on paymentid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+
+        sql = f"SELECT * FROM Payments WHERE paymentid = {paymentid}"
+        cur.execute(sql)
+        payments = cur.fetchall()
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
+        cur.close()
+        return payments
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+def get_total(userid):
+    """ query payments based on paymentid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+
+        sql = f"SELECT sum(totalcost) FROM orders WHERE userid = {userid}"
+        cur.execute(sql)
+        payments = cur.fetchall()
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
+        cur.close()
+        return payments
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+def query_user(userid):
+    """ query payments based on paymentid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname,
+        dbname = database,
+        user= username,
+        password = pwd,
+        port = port_id)
+
+        cur = conn.cursor()
+
+        sql = f"SELECT * FROM users WHERE userid = {userid}"
+        cur.execute(sql)
+        users = cur.fetchall()
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
+        cur.close()
+        return users
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
 def top_users():
     """ Returns tuples of top users, by money spent.
         Check console for log of info.
@@ -318,7 +402,7 @@ def update_product_price(productid, new_price):
         if conn is not None:
             conn.close()
 
-def delete_order(productid):
+def delete_order(orderid):
     """ Deletes product from DB based on productid.
         Check console for log of info.
         Return Type: Boolean. IF TRUE: Success, do nothing | IF FALSE: Error, give something-wrong.html.
@@ -333,7 +417,7 @@ def delete_order(productid):
         port = port_id)
 
         cur = conn.cursor()
-        sql = f"DELETE FROM orders CASCADE WHERE productid = {productid}"
+        sql = f"DELETE FROM orders CASCADE WHERE orderid = {orderid}"
         print("Delete product statement:\t" + sql)
         cur.execute(sql)
         #Commits official changes to DB SweetTooth
