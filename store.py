@@ -89,12 +89,12 @@ def login():
 
     return render_template('login_signup.html')
 
-@app.route('/prodicks')
+@app.route('/prodicks', methods=['GET', 'POST'])
 def ma():
     ##### replace these with actual database call: ##############
     # itemInfo = db.getItems(storeid)
-
-    product_list = query_products(1)
+    storeid = int(request.form.get('storeid'))
+    product_list = query_products(storeid)
     # product_tags = ("chocolate_chip_cockies", 1234, 20) #display name, tag name, productid, price
     # itemInfo = db.getItems(storeid) # get list of all items in db
     return render_template('prodicks.html', product_list=product_list)
