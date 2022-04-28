@@ -13,6 +13,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres@localhost/sweetshop'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+store_id = 0
 
 @app.route('/process_login', methods =['POST'])
 def processLoginSignUp():
@@ -37,11 +38,25 @@ def processLoginSignUp():
 
 # query_products(2)
 
+@app.route('/store_find',methods=['POST','GET'])
+def store_find():
+    global store_id
+    stoopidstore =int(request.form.get('storeid'))
+    
+    if stoopidstore != 0:
+        store_id = stoopidstore
+
+    if stoopidstore == 0:
+        product_list = query_products(store_id)
+    product_list = query_products(stoopidstore)
+    return render_template('prodicks.html',product_list=product_list, stoopidstore=stoopidstore)
+
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
+
     return render_template('doodoobase.html')
 
 @app.route('/add-products', methods=['POST'])
@@ -53,15 +68,23 @@ def addTingzToCart():
     totalcost = float(request.form.get('price_item'))
     street = request.form.get('userstreet')
     city = request.form.get('usercity')
-    insert_order(userid, productid, quantity, totalcost, street, city)
-    return redirect("http://127.0.0.1:5000/prodicks")
+
+    # storeid = 1
+    storeid = int(request.form.get('storeid'))
+    # product_list = query_products(storeid)
+    insert_order(userid, productid, quantity, totalcost, street, city) 
+
+    return render_template('doodoobase.html')
+    # return render_template("prodicks.html",storeid=storeid)
 
 @app.route('/delete-products' , methods=['GET', 'POST'])
 def removeTingsFromCart():
     productid = int(request.form.get('productid'))
-    delete_product(productid)
+    delete_order(productid)
     return render_template("cart.html")
     # return render_template("http://127.0.0.1:5000/cart")
+# delete_product(2)
+
 
 # These are endpoints
 # What the applications will be responding with if they go to the
@@ -93,11 +116,11 @@ def login():
 def ma():
     ##### replace these with actual database call: ##############
     # itemInfo = db.getItems(storeid)
-    storeid = int(request.form.get('storeid'))
-    product_list = query_products(storeid)
+    # storeid = int(request.form.get('storeid'))
+    # product_list = query_products(storeid)
     # product_tags = ("chocolate_chip_cockies", 1234, 20) #display name, tag name, productid, price
     # itemInfo = db.getItems(storeid) # get list of all items in db
-    return render_template('prodicks.html', product_list=product_list)
+    return render_template('prodicks.html')
 
 @app.route('/product')
 def product():

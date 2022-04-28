@@ -318,7 +318,7 @@ def update_product_price(productid, new_price):
         if conn is not None:
             conn.close()
 
-def delete_product(productid):
+def delete_order(productid):
     """ Deletes product from DB based on productid.
         Check console for log of info.
         Return Type: Boolean. IF TRUE: Success, do nothing | IF FALSE: Error, give something-wrong.html.
@@ -333,7 +333,7 @@ def delete_product(productid):
         port = port_id)
 
         cur = conn.cursor()
-        sql = f"DELETE FROM products CASCADE WHERE productid = {productid}"
+        sql = f"DELETE FROM orders CASCADE WHERE productid = {productid}"
         print("Delete product statement:\t" + sql)
         cur.execute(sql)
         #Commits official changes to DB SweetTooth
@@ -347,6 +347,7 @@ def delete_product(productid):
     finally:
         if conn is not None:
             conn.close()
+          
 
 def product_price(productid):
     """ Returns float value of a price for a product, since we need this to compute for insert_order().
