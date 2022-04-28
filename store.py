@@ -70,6 +70,10 @@ def removeTingsFromCart():
 def quotes():
     return render_template('about_us.html')
 
+@app.route('/menu')
+def menu():
+    return render_template('store_menu.html')
+
 @app.route('/cart')
 def cart():
     cart_items = query_order("bond007") #TESTING
