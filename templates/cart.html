@@ -17,7 +17,7 @@
         .your-mom {
             background-color: #3399ff;
             color: white;
-            font-size: 17px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -60,7 +60,7 @@
         .butts {
             color: #3399ff;
             border-color: #c6e2ff;
-            font-size: 18px;
+            font-size: 22px;
             /* height: 60px; */
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
@@ -72,7 +72,7 @@
 
         .peepee_name {
             padding-top: 10px;
-            font-size: 20px;
+            font-size: 25px;
             color: #808080;
             font-weight: bold;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -81,14 +81,14 @@
         .peepee_other {
             padding-bottom: 10px;
             color: #999999;
-            font-size: 20px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
         .peepee_desc {
             padding-bottom: 10px;
             color: black;
-            font-size: 18px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -144,25 +144,21 @@
             <div class="row deez-nuts padding justify-content-left align-items-left">
                 Your Cart
             </div> 
-            {% for doodoo in cart_items %}
+            {% for doodoo in prod_shit %}
             <div class="row border-top">
                 <div class="col-sm-4 padding">
-                    <center><img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
+                    <center><img src="../static/{{ doodoo[9] }}.jpg" alt="weenies", width="400", height="350"/>
                     </center>
                 </div>
-                <div class="col">
+                <div class="col-sm-4">
                     <!-- product id, should update to user name -->
-                    <p class="peepee_name">{{ doodoo[1] }}</p>
+                    <p class="peepee_name">{{ doodoo[9] }}</p>
                     <!-- quantity -->
-                    <p class="peepee_other">${{ doodoo[2] }}</p>
+                    <p class="peepee_other">Quantity: {{ doodoo[2] }}</p>
                     <!-- price  -->
-                    <p class="peepee_other">${{ doodoo[3] }}</p>
+                    <p class="peepee_other">${{ doodoo[11] }}</p>
                     <center>
                         <form action="/delete-products" method="post">
-                        <img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
-                        <p class="peepee_name"> {{ doodoo[1] }}</p>
-                        order tuple is {{doodoo}}
-                        orderid is {{doodoo[6]}}
                         <input type="hidden" name="orderid" value="{{ doodoo[6] }}"/>
                         <div class="custom-select" style="width:200px;">
                         </div>
@@ -180,7 +176,7 @@
                     <button id="checkout" class="btn butts submit-button" >Checkout</button>
                     <script type="text/javascript">
                         document.getElementById("checkout").onclick = function () {
-                            location.href = "http://127.0.0.1:5000/checkout";
+                            location.href = "/checkout";
                         };
                     </script>
                     <!-- <button type="button" class="btn butts">Checkout</button> -->

@@ -16,7 +16,7 @@
         .your-mom {
             background-color: #3399ff;
             color: white;
-            font-size: 17px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -68,7 +68,7 @@
         .butts {
             color: #3399ff;
             border-color: #c6e2ff;
-            font-size: 18px;
+            font-size: 22px;
             /* height: 60px; */
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
@@ -89,7 +89,7 @@
         .peepee_other {
             padding-bottom: 10px;
             color: #999999;
-            font-size: 20px;
+            font-size: 18px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -156,21 +156,30 @@
             </div>
             </center>
         </form>
+
+        <div class="container justify-content-center align-items-center">
         <center>{% if flag == 1 %}
-             <div class="row deez-nuts-small">Welcome {{ username }}!</div>
+             <div class="row peepee_other">
+                <li class="peepee_other">
+                 Welcome {{ username }}!</li></div></center>
             <!-- <script type="text/javascript">
                     location.href = "/";
             </script> -->
-        {% else %}
+            <center>{% endif %} 
+                {% if flag == 0 %}
+            <p class="padding"></p>
         <center> <div class="row deez-nuts-small">That username and password is not recognized. </div></center>
         <center> <div class="row deez-nuts-small">Don't have an account?</div></center>
+        <p class="padding"></p>
         <center><form action="/process_signup" method="post">
                 <button type="submit" class="btn butts">
                     Sign up!<i class="bi-heart-fill" style="font-size: 1.5rem;"></i>
                 </button>
         </form></center>
-
-        {% endif %}</center>
+    </center>
+        <center>{% endif %}</center>
+    </div>
+    <!-- end goddamn container -->
 
     </div>
 </div>

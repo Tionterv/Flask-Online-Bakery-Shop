@@ -17,7 +17,7 @@
         .your-mom {
             background-color: #3399ff;
             color: white;
-            font-size:18px;
+            font-size:22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -69,6 +69,11 @@
             padding-bottom: 60px;
         }
 
+        .butt_pads {
+            padding-top: 15px;
+            padding-bottom: 15px;
+        }
+
         .padding_size {
             padding-left: 20px;
             padding-right: 20px;
@@ -76,7 +81,7 @@
 
         .peepee_name {
             padding-top: 10px;
-            font-size: 18px;
+            font-size: 25px;
             color: #808080;
             font-weight: bold;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -85,7 +90,7 @@
         .peepee_other {
             padding-bottom: 10px;
             color: #999999;
-            font-size: 17px;
+            font-size: 20px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -108,7 +113,7 @@
         .peepee_desc {
             padding-bottom: 10px;
             color: black;
-            font-size: 18px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -231,12 +236,12 @@
                             </ul>
                             </li>
                     </ul>
-                    <form class="d-flex padding_side">
+                    <!-- <form class="d-flex padding_side">
                         <input class="form-control me-2" type="search" placeholder="Help me find bitches" aria-label="Search">
                         <button class="btn your-mom" type="submit">
                             <i class="bi-search" style="font-size: 1.5rem;"></i>
                         </button>
-                    </form>
+                    </form> -->
                     <button id="yeehaw" class="btn your-mom padding_side">
                         <i class="bi-cart-fill" style="font-size: 1.5rem;"></i>
                     </button>
@@ -255,14 +260,15 @@
                         <div class="col-sm-4 border padding">
                             <center>
                                 <form action="/add-products" method="post">
-                                <img src="../static/{{ product_tags[1] }}.jpg" alt="weenies", width="300", height="250"/>
+                                <!-- <img src="../static/Venetian_Donut.jpg" alt="weenies", width="300", height="250"/> -->
+                                <img src="../static/{{ product_tags[1] }}.jpg" alt="weenies", width="500", height="450"/>
                                 <p class="peepee_name"> {{ product_tags[1] }}</p>
                                 <input type="hidden" name="productid" value="{{ product_tags[0] }}"/>
                                 <input type="hidden" name="userid" value="bond007"/>
                                 <input type="hidden" name="userstreet" value="12345 MA Drive"/>
                                 <input type="hidden" name="usercity" value="Boston"/>
                                 <input type="hidden" name="storeid" value="{{stoopidstore}}"/>
-                                Deez nuts in my {{stoopidstore}}
+                                <!-- Deez nuts in my {{stoopidstore}} -->
 
                                 <input type="hidden" class="peepee_other" name="price_item" value="{{ product_tags[3] }}"/>
 
@@ -283,6 +289,7 @@
                                       <option value="10">10</option>
                                     </select>
                                   </div>
+                                  <p class="butt_pads"></p>
                                 <button type="submit" class="btn your-mom">
                                     Add to Cart
                                 </button>

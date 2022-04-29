@@ -18,25 +18,28 @@ store_id = 0
 
 @app.route('/process_login', methods =['POST'])
 def process_login():
+    flag = -1
     username = request.form.get('userid')
     assword = request.form.get('password')
-
     flag = login_attempt(username, assword)
 
     return render_template("login.html", flag=flag, username=username)
 
 @app.route('/process_signup', methods =['POST'])
 def process_signup():
+    flag = -1
     username = request.form.get('userid')
     name = request.form.get('name')
     email= request.form.get('email')
     assword = request.form.get('password')
-    insert_user(username, name, assword, email)
+    succ = insert_user(username, name, assword, email)
 
-    if username == "" or name == "" or email == "" or assword == "":
+    if username == "" and name == "" and email == "" and assword == "":
+        flag = -1
+    elif username == "" or name == "" or email == "" or assword == "":
         flag = 0
-    else:
-        flag = 1
+    # elif succ:
+    #     flag = 1
     
     return render_template("signup.html", flag=flag, username=username)
     
@@ -114,18 +117,6 @@ def removeTingsFromCart():
     # return render_template("http://127.0.0.1:5000/cart")
 # delete_product(2)
 
-@app.route('/checkout',methods=['POST','GET'])
-def checkout():
-    userid = "bond007"
-    checkout_items = query_order(userid)
-    user_info = query_user(userid)
-    payment_shit = query_payment(userid)
-    total_cost = get_total(userid)
-    # print("\nyour mom weewoo {}\n\n".format(total_cost))
-    
-    #make new page that says checkout is successful
-    return render_template('success.html', checkout_items=checkout_items, user_info=user_info, payment_shit=payment_shit, total_cost=total_cost)
-
 # These are endpoints
 # What the applications will be responding with if they go to the
 # /about or /quotes sections
@@ -140,9 +131,11 @@ def menu():
 @app.route('/cart')
 def cart():
     username = "bond007"
-    cart_items = query_order(username) #TESTING
-    print(cart_items)
-    return render_template('cart.html', cart_items=cart_items)
+    # cart_items = query_order(username) #TESTING
+    prod_shit = query_prods(username)
+    # print(cart_items)
+    # prod_names = query_prod_name(userid)
+    return render_template('cart.html', prod_shit=prod_shit)
 
 @app.route('/contact_us')
 def contact():
@@ -173,7 +166,24 @@ def success():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')    
+    return render_template('login.html')  
+
+@app.route('/checkout', methods=['POST','GET'])
+def process_checkout():
+    userid = "bond007"
+    # checkout_items = query_order(userid)
+    # user_info = query_user(userid)
+
+    # print("MY ASS" + str(user_info))
+    # cart_items = query_order(username) #TESTING
+    prod_shit = query_prods(userid)
+
+    payment_shit = query_payment(userid)
+    total_cost = get_total(userid)
+    # print("\nyour mom weewoo {}\n\n".format(total_cost))
+    
+    #make new page that says checkout is successful
+    return render_template('checkout.html', prod_shit=prod_shit, payment_shit=payment_shit, total_cost=total_cost)  
 
 @app.route('/error')
 def error():

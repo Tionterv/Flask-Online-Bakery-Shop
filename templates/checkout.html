@@ -60,7 +60,7 @@
         .butts {
             color: #3399ff;
             border-color: #c6e2ff;
-            font-size: 18px;
+            font-size: 22px;
             /* height: 60px; */
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
@@ -72,7 +72,7 @@
 
         .peepee_name {
             padding-top: 10px;
-            font-size: 20px;
+            font-size: 25px;
             color: #808080;
             font-weight: bold;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
@@ -81,14 +81,14 @@
         .peepee_other {
             padding-bottom: 10px;
             color: #999999;
-            font-size: 20px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
         .peepee_desc {
             padding-bottom: 10px;
             color: black;
-            font-size: 18px;
+            font-size: 22px;
             font-family: "Comic Sans MS", "Comic Sans", cursive;
         }
 
@@ -125,12 +125,12 @@
                     <a class="nav-link" href="doodoobase.html">
                         <i class="bi-house-door-fill" style="font-size: 1.5rem;"></i>
                     </a>
-                    </li>
+                    <!-- </li>
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="prodicks.html">
                             <i class="bi-arrow-left-square-fill" style="font-size: 1.5rem;"></i>
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
                 </div>
             </div>
@@ -144,7 +144,7 @@
             <div class="row deez-nuts padding justify-content-left align-items-left">
                 Checkout
             </div> 
-            {% for doodoo in checkout_items %}
+            {% for doodoo in prod_shit %}
             <div class="row border-top">
                 <div class="col-sm-4 padding">
                     <!-- <center><img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
@@ -152,11 +152,11 @@
                 </div>
                 <div class="col">
                     <!-- product id, should update to user name -->
-                    <p class="peepee_name">{{ doodoo[1] }}</p>
+                    <p class="peepee_name">{{ doodoo[9] }}</p>
                     <!-- quantity -->
                     <p class="peepee_other">${{ doodoo[2] }}</p>
                     <!-- price  -->
-                    <p class="peepee_other">${{ doodoo[3] }}</p>
+                    <p class="peepee_other">${{ doodoo[11]] }}</p>
                     
                 </div>
             </div>
@@ -164,9 +164,9 @@
             <div class="row padding">
                 <div class="col padding">
                     <center>
-                        <form action="/checkout" method="post">
-                        <input type="hidden" name="userid" value="{{ user_info[0] }}"/>
-                        <input type="hidden" name="paymentid" value="{{ user_info[1] }}"/>
+                        <!-- <form action="/checkout" method="post"> -->
+                        <!-- <input type="hidden" name="userid" value="{{ user_info[0] }}"/> -->
+                        <!-- <input type="hidden" name="paymentid" value="{{ user_info[1] }}"/> -->
                         <p class="peepee_desc">Your total is ${{ total_cost[0][0] }}</p>
                         <p class="peepee_other">Pay with {{ payment_shit[0][0] }}</p>
                         <div class="custom-select" style="width:200px;">
@@ -184,7 +184,8 @@
                            Place Order <i class="bi-heart-fill" style="font-size: 1.5rem;"></i>
                         </button> -->
 
-                    </center></form>
+                    </center>
+                <!-- </form> -->
                 </div>
             </div>
         </div>

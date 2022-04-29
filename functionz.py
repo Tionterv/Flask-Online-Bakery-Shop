@@ -161,6 +161,30 @@ def query_user(userid):
         if conn is not None:
             conn.close()
 
+def query_prods(userid):
+    """ query payments based on paymentid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
+
+        cur = conn.cursor()
+
+        sql = f"SELECT * FROM orders INNER JOIN products ON orders.productid = products.productid AND orders.userid =  '{userid}'"
+        cur.execute(sql)
+        prodicks = cur.fetchall()
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
+        cur.close()
+        return prodicks
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
 def top_users():
     """ Returns tuples of top users, by money spent.
         Check console for log of info.
