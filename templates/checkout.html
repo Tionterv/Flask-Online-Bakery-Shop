@@ -147,16 +147,16 @@
             {% for doodoo in prod_shit %}
             <div class="row border-top">
                 <div class="col-sm-4 padding">
-                    <!-- <center><img src="../static/{{ doodoo[1] }}.jpg" alt="weenies", width="300", height="250"/>
-                    </center> -->
+                    <center><img src="../static/{{ doodoo[9] }}.jpg" alt="weenies", width="250", height="200"/>
+                    </center>
                 </div>
                 <div class="col">
                     <!-- product id, should update to user name -->
                     <p class="peepee_name">{{ doodoo[9] }}</p>
                     <!-- quantity -->
-                    <p class="peepee_other">${{ doodoo[2] }}</p>
+                    <p class="peepee_other">Quantity: {{ doodoo[2] }}</p>
                     <!-- price  -->
-                    <p class="peepee_other">${{ doodoo[11]] }}</p>
+                    <p class="peepee_other">${{ doodoo[11] }}</p>
                     
                 </div>
             </div>
@@ -164,9 +164,6 @@
             <div class="row padding">
                 <div class="col padding">
                     <center>
-                        <!-- <form action="/checkout" method="post"> -->
-                        <!-- <input type="hidden" name="userid" value="{{ user_info[0] }}"/> -->
-                        <!-- <input type="hidden" name="paymentid" value="{{ user_info[1] }}"/> -->
                         <p class="peepee_desc">Your total is ${{ total_cost[0][0] }}</p>
                         <p class="peepee_other">Pay with {{ payment_shit[0][0] }}</p>
                         <div class="custom-select" style="width:200px;">

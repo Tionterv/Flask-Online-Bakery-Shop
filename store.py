@@ -14,7 +14,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql+psycopg2://postgres:postgres
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 store_id = 0
-
+login_user = ""
 
 @app.route('/process_login', methods =['POST'])
 def process_login():
@@ -22,6 +22,10 @@ def process_login():
     username = request.form.get('userid')
     assword = request.form.get('password')
     flag = login_attempt(username, assword)
+
+    if flag == 1:
+        global login_user
+        login_user = username
 
     return render_template("login.html", flag=flag, username=username)
 
@@ -34,6 +38,9 @@ def process_signup():
     assword = request.form.get('password')
     succ = insert_user(username, name, assword, email)
 
+    global login_user 
+    login_user = username
+
     if username == "" and name == "" and email == "" and assword == "":
         flag = -1
     elif username == "" or name == "" or email == "" or assword == "":
@@ -45,8 +52,6 @@ def process_signup():
     
     
     # return redirect("http://127.0.0.1:5000/error")
-    
-    return render_template("signup.html", username=username)
 
     # user_name = request.form.get('userid')
     # f_name = request.form.get('fname')
@@ -75,9 +80,9 @@ def process_signup():
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
+    return render_template('doodoobase.html', login_user=login_user)
 
 
-    return render_template('doodoobase.html')
 @app.route('/store_find',methods=['POST','GET'])
 def store_find():
     global store_id
@@ -94,7 +99,7 @@ def store_find():
 @app.route('/add-products', methods=['POST'])
 def addTingzToCart():
     global nameParam
-    userid = request.form.get('userid')
+    # userid = request.form.get('userid')
     productid = int(request.form.get('productid'))
     quantity = int(request.form.get('quantitty'))
     totalcost = float(request.form.get('price_item'))
@@ -104,7 +109,7 @@ def addTingzToCart():
     # storeid = 1
     storeid = int(request.form.get('storeid'))
     # product_list = query_products(storeid)
-    insert_order(userid, productid, quantity, totalcost, street, city) 
+    insert_order(login_user, productid, quantity, totalcost, street, city) 
 
     return render_template('doodoobase.html')
     # return render_template("prodicks.html",storeid=storeid)
@@ -124,15 +129,11 @@ def removeTingsFromCart():
 def quotes():
     return render_template('about_us.html')
 
-@app.route('/menu')
-def menu():
-    return render_template('store_menu.html')
-
 @app.route('/cart')
 def cart():
-    username = "bond007"
+    # username = "bond007"
     # cart_items = query_order(username) #TESTING
-    prod_shit = query_prods(username)
+    prod_shit = query_prods(login_user)
     # print(cart_items)
     # prod_names = query_prod_name(userid)
     return render_template('cart.html', prod_shit=prod_shit)
@@ -140,11 +141,6 @@ def cart():
 @app.route('/contact_us')
 def contact():
     return render_template('contact_us.html')
-
-# @app.route('/login_signup')
-# def login():
-
-#     return render_template('login_signup.html')
 
 @app.route('/prodicks', methods=['GET', 'POST'])
 def ma():
@@ -170,16 +166,18 @@ def login():
 
 @app.route('/checkout', methods=['POST','GET'])
 def process_checkout():
-    userid = "bond007"
+    # global login_user
+    # login_user
+    # userid = "bond007"
     # checkout_items = query_order(userid)
     # user_info = query_user(userid)
 
     # print("MY ASS" + str(user_info))
     # cart_items = query_order(username) #TESTING
-    prod_shit = query_prods(userid)
+    prod_shit = query_prods(login_user)
 
-    payment_shit = query_payment(userid)
-    total_cost = get_total(userid)
+    payment_shit = query_payment(login_user)
+    total_cost = get_total(login_user)
     # print("\nyour mom weewoo {}\n\n".format(total_cost))
     
     #make new page that says checkout is successful
