@@ -9,7 +9,7 @@
 </head>
 <body>
     <style>
-        .fuckin-ass-row {
+        .the-row {
             background-color:#c6e2ff;
         }
 
@@ -123,6 +123,12 @@
                         <i class="bi-house-door-fill" style="font-size: 1.5rem;"></i>
                     </a>
                     </li>
+                    {% if flag == 1 %}
+                    <li class="nav-item">
+                        <a class="nav-link">
+                        Welcome {{ login_user}}!    <i class="bi-balloon-heart" style="font-size: 1.5rem;"></i>
+                        </a>
+                    </li>{% endif %} 
                 </ul>
                 </div>
             </div>

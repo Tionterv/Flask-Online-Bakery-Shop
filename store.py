@@ -15,12 +15,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 store_id = 0
 login_user = ""
+flag = -1
+signup = 0
 
 @app.route('/process_login', methods =['POST'])
 def process_login():
-    flag = -1
+    # flag = -1
     username = request.form.get('userid')
     assword = request.form.get('password')
+    global flag
     flag = login_attempt(username, assword)
 
     if flag == 1:
@@ -31,7 +34,7 @@ def process_login():
 
 @app.route('/process_signup', methods =['POST'])
 def process_signup():
-    flag = -1
+    # flag = -1
     username = request.form.get('userid')
     name = request.form.get('name')
     email= request.form.get('email')
@@ -41,46 +44,22 @@ def process_signup():
     global login_user 
     login_user = username
 
-    if username == "" and name == "" and email == "" and assword == "":
-        flag = -1
-    elif username == "" or name == "" or email == "" or assword == "":
-        flag = 0
-    # elif succ:
-    #     flag = 1
+    global signup
+    signup = 1
+
+    global flag
+    flag = -1
+    if succ:
+        flag = 1
     
-    return render_template("signup.html", flag=flag, username=username)
-    
-    
-    # return redirect("http://127.0.0.1:5000/error")
-
-    # user_name = request.form.get('userid')
-    # f_name = request.form.get('fname')
-    # l_name = request.form.get('lname')
-    # e_mail= request.form.get('email')
-    # re_email = request.form.get('email2')
-    # pass_word = request.form.get('password')
-
-    # name = f_name + " " + l_name
-
-    # # checks if the information entered is valid
-    # if user_name == "" or f_name == "" or l_name == "" or e_mail == "" or re_email == "" or pass_word == "" or e_mail != re_email:
-    #     return redirect("http://127.0.0.1:5000/error")
-
-    
-    # insert_user(user_name, name, pass_word, e_mail)
-
-
-    # return redirect("http://127.0.0.1:5000/")
-
-# query_products(2)
-
+    return render_template("signup.html", flag=flag, login_user=login_user)
 
 # Route decorator tells Flask what url to use to trigger a function
 @app.route('/')
 def index():
     # fetches all the records in the Favquotes table and stores them in the result variable
     # result = Favquotes.query.all()
-    return render_template('doodoobase.html', login_user=login_user)
+    return render_template('doodoobase.html', flag=flag, login_user=login_user)
 
 
 @app.route('/store_find',methods=['POST','GET'])
@@ -94,7 +73,7 @@ def store_find():
     if stoopidstore == 0:
         product_list = query_products(store_id)
     product_list = query_products(stoopidstore)
-    return render_template('prodicks.html',product_list=product_list, stoopidstore=stoopidstore)
+    return render_template('productss.html',product_list=product_list, stoopidstore=stoopidstore, login_user=login_user, flag=flag)
 
 @app.route('/add-products', methods=['POST'])
 def addTingzToCart():
@@ -103,16 +82,16 @@ def addTingzToCart():
     productid = int(request.form.get('productid'))
     quantity = int(request.form.get('quantitty'))
     totalcost = float(request.form.get('price_item'))
-    street = request.form.get('userstreet')
-    city = request.form.get('usercity')
+    store_info = query_store(store_id)
 
-    # storeid = 1
-    storeid = int(request.form.get('storeid'))
-    # product_list = query_products(storeid)
+    print("\nDOODOO " + str(store_info) + "\n")
+
+    street = store_info[store_id-1][2]
+    city = store_info[store_id-1][3]
     insert_order(login_user, productid, quantity, totalcost, street, city) 
 
-    return render_template('doodoobase.html')
-    # return render_template("prodicks.html",storeid=storeid)
+    return render_template('doodoobase.html', login_user=login_user, flag=flag)
+    # return render_template("productss.html",storeid=storeid)
 
 @app.route('/delete-products' , methods=['GET', 'POST'])
 def removeTingsFromCart():
@@ -127,61 +106,44 @@ def removeTingsFromCart():
 # /about or /quotes sections
 @app.route('/about_us')
 def quotes():
-    return render_template('about_us.html')
+    return render_template('about_us.html', login_user=login_user, flag=flag)
 
 @app.route('/cart')
 def cart():
-    # username = "bond007"
-    # cart_items = query_order(username) #TESTING
-    prod_shit = query_prods(login_user)
+    prod_dembow = query_prods(login_user)
     # print(cart_items)
     # prod_names = query_prod_name(userid)
-    return render_template('cart.html', prod_shit=prod_shit)
+    return render_template('cart.html', prod_dembow=prod_dembow, login_user=login_user, flag=flag, signup=signup)
 
 @app.route('/contact_us')
 def contact():
-    return render_template('contact_us.html')
+    return render_template('contact_us.html', login_user=login_user, flag=flag)
 
-@app.route('/prodicks', methods=['GET', 'POST'])
+@app.route('/productss', methods=['GET', 'POST'])
 def ma():
-    ##### replace these with actual database call: ##############
-    # itemInfo = db.getItems(storeid)
-    # storeid = int(request.form.get('storeid'))
-    # product_list = query_products(storeid)
-    # product_tags = ("chocolate_chip_cockies", 1234, 20) #display name, tag name, productid, price
-    # itemInfo = db.getItems(storeid) # get list of all items in db
-    return render_template('prodicks.html')
+    return render_template('productss.html', login_user=login_user,flag=flag)
 
 @app.route('/product')
 def product():
-    return render_template('product_page.html')
+    return render_template('product_page.html', login_user=login_user, flag=flag)
 
 @app.route('/success')
 def success():
-    return render_template('success.html')
+    return render_template('success.html', login_user=login_user, flag=flag)
 
 @app.route('/login')
 def login():
-    return render_template('login.html')  
+    return render_template('login.html', login_user=login_user, flag=flag)  
 
 @app.route('/checkout', methods=['POST','GET'])
 def process_checkout():
-    # global login_user
-    # login_user
-    # userid = "bond007"
-    # checkout_items = query_order(userid)
-    # user_info = query_user(userid)
+    prod_dembow = query_prods(login_user)
 
-    # print("MY ASS" + str(user_info))
-    # cart_items = query_order(username) #TESTING
-    prod_shit = query_prods(login_user)
-
-    payment_shit = query_payment(login_user)
+    payment_dembow = query_payment(login_user)
     total_cost = get_total(login_user)
-    # print("\nyour mom weewoo {}\n\n".format(total_cost))
     
     #make new page that says checkout is successful
-    return render_template('checkout.html', prod_shit=prod_shit, payment_shit=payment_shit, total_cost=total_cost)  
+    return render_template('checkout.html', prod_dembow=prod_dembow, payment_dembow=payment_dembow, total_cost=total_cost, login_user=login_user, flag=flag, signup=signup)  
 
 @app.route('/error')
 def error():

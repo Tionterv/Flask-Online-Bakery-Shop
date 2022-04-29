@@ -9,7 +9,7 @@
 </head>
 <body>
     <style>
-        .fuckin-ass-row {
+        .the-row {
             background-color:#c6e2ff;
             height: 400px;
         }
@@ -203,7 +203,14 @@
                                 <i class="bi-house-door-fill" style="font-size: 1.5rem;"></i>
                             </a>
                             </li>
-                        <li class="nav-item dropdown">
+                            {% if flag == 1 %}
+                            <li class="nav-item">
+                                <a class="nav-link">
+                                Welcome {{ login_user}}!    <i class="bi-balloon-heart" style="font-size: 1.5rem;"></i>
+                                </a>
+                            </li>{% endif %} 
+                        </li>
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Price
                             </a>
@@ -234,7 +241,7 @@
                                 <li><a class="dropdown-item" href="#">Low to High</a></li>
                                 <li><a class="dropdown-item" href="#">High to Low</a></li>
                             </ul>
-                            </li>
+                            </li> -->
                     </ul>
                     <!-- <form class="d-flex padding_side">
                         <input class="form-control me-2" type="search" placeholder="Help me find bitches" aria-label="Search">
@@ -265,11 +272,6 @@
                                 <p class="peepee_name"> {{ product_tags[1] }}</p>
                                 <input type="hidden" name="productid" value="{{ product_tags[0] }}"/>
                                 <input type="hidden" name="userid" value="bond007"/>
-                                <input type="hidden" name="userstreet" value="12345 MA Drive"/>
-                                <input type="hidden" name="usercity" value="Boston"/>
-                                <input type="hidden" name="storeid" value="{{stoopidstore}}"/>
-                                <!-- Deez nuts in my {{stoopidstore}} -->
-
                                 <input type="hidden" class="peepee_other" name="price_item" value="{{ product_tags[3] }}"/>
 
                                 <div class="custom-select" style="width:200px;">

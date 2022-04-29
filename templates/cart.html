@@ -9,12 +9,12 @@
 </head>
 <body>
     <style>
-        .fuckin-ass-row {
+        .the-row {
             background-color:#c6e2ff;
             height: 400px;
         }
 
-        .your-mom {
+        .changez {
             background-color: #3399ff;
             color: white;
             font-size: 22px;
@@ -126,11 +126,12 @@
                         <i class="bi-house-door-fill" style="font-size: 1.5rem;"></i>
                     </a>
                     </li>
-                    <!-- <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="prodicks">
-                            <i class="bi-arrow-left-square-fill" style="font-size: 1.5rem;"></i>
+                    {% if flag == 1 %}
+                    <li class="nav-item">
+                        <a class="nav-link">
+                        Welcome {{ login_user}}!    <i class="bi-balloon-heart" style="font-size: 1.5rem;"></i>
                         </a>
-                    </li> -->
+                    </li>{% endif %} 
                 </ul>
                 </div>
             </div>
@@ -144,7 +145,7 @@
             <div class="row deez-nuts padding justify-content-left align-items-left">
                 Your Cart
             </div> 
-            {% for doodoo in prod_shit %}
+            {% for doodoo in prod_dembow %}
             <div class="row border-top">
                 <div class="col-sm-4 padding">
                     <center><img src="../static/{{ doodoo[9] }}.jpg" alt="weenies", width="400", height="350"/>
@@ -162,7 +163,7 @@
                         <input type="hidden" name="orderid" value="{{ doodoo[6] }}"/>
                         <div class="custom-select" style="width:200px;">
                         </div>
-                        <button type="submit" class="btn your-mom">
+                        <button type="submit" class="btn changez">
                             Delete
                         </button>
                     </center></form>

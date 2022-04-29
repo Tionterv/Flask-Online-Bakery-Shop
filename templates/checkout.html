@@ -9,7 +9,7 @@
 </head>
 <body>
     <style>
-        .fuckin-ass-row {
+        .the-row {
             background-color:#c6e2ff;
             height: 400px;
         }
@@ -125,12 +125,12 @@
                     <a class="nav-link" href="doodoobase.html">
                         <i class="bi-house-door-fill" style="font-size: 1.5rem;"></i>
                     </a>
-                    <!-- </li>
+                    {% if flag == 1 %}
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="prodicks.html">
-                            <i class="bi-arrow-left-square-fill" style="font-size: 1.5rem;"></i>
+                        <a class="nav-link">
+                        Welcome {{ login_user}}!    <i class="bi-balloon-heart" style="font-size: 1.5rem;"></i>
                         </a>
-                    </li> -->
+                    </li>{% endif %} 
                 </ul>
                 </div>
             </div>
@@ -144,7 +144,7 @@
             <div class="row deez-nuts padding justify-content-left align-items-left">
                 Checkout
             </div> 
-            {% for doodoo in prod_shit %}
+            {% for doodoo in prod_dembow %}
             <div class="row border-top">
                 <div class="col-sm-4 padding">
                     <center><img src="../static/{{ doodoo[9] }}.jpg" alt="weenies", width="250", height="200"/>
@@ -165,10 +165,20 @@
                 <div class="col padding">
                     <center>
                         <p class="peepee_desc">Your total is ${{ total_cost[0][0] }}</p>
-                        <p class="peepee_other">Pay with {{ payment_shit[0][0] }}</p>
+                        <p class="peepee_other">Pay with {{ payment_dembow[0][0] }}</p>
                         <div class="custom-select" style="width:200px;">
                         </div>
 
+                        {% if signup == 1 %}
+                        <button id="error" class="btn butts submit-button" >Place Order <i class="bi-heart-fill" style="font-size: 1.5rem;"></i>
+                        </button>
+                        <script type="text/javascript">
+                            document.getElementById("errror").onclick = function () {
+                                location.href = "/error";
+                            };
+                        </script>
+
+                        {% else %}
                         <button id="place_order" class="btn butts submit-button" >Place Order <i class="bi-heart-fill" style="font-size: 1.5rem;"></i>
                         </button>
                         <script type="text/javascript">
@@ -176,10 +186,7 @@
                                 location.href = "/success";
                             };
                         </script>
-
-                        <!-- <button type="submit" class="btn butts">
-                           Place Order <i class="bi-heart-fill" style="font-size: 1.5rem;"></i>
-                        </button> -->
+                        {% endif %}
 
                     </center>
                 <!-- </form> -->

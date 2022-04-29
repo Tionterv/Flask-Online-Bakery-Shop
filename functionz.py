@@ -32,6 +32,30 @@ def query_products(storeid):
         if conn is not None:
             conn.close()
 
+def query_store(storeid):
+    """ query products based on storeid
+        See console for printed info
+    """
+    conn = None
+    try:
+        conn = psycopg2.connect(host = hostname, dbname = database, user= username, password = pwd, port = port_id)
+        cur = conn.cursor()
+
+        sql = f"SELECT * from stores"
+        cur.execute(sql)
+        products = cur.fetchall()
+        # print("---The Requested Store Menu Is---\n")
+        # for row in products:
+        #     print(row)
+        cur.close()
+        return products
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
 def insert_user(userid,name,password,email):
     """ Inserts user into DB, if it does not already exist.
         Check console to see the SQL statement sent.
@@ -173,12 +197,12 @@ def query_prods(userid):
 
         sql = f"SELECT * FROM orders INNER JOIN products ON orders.productid = products.productid AND orders.userid =  '{userid}'"
         cur.execute(sql)
-        prodicks = cur.fetchall()
+        productss = cur.fetchall()
         # print("---The Requested Store Menu Is---\n")
         # for row in products:
         #     print(row)
         cur.close()
-        return prodicks
+        return productss
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
     finally:
@@ -259,7 +283,7 @@ def query_order(userid):
         return rows
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
-        print("doodooo query shit not working")
+        print("doodooo query dembow not working")
     finally:
         if conn is not None:
             conn.close()
