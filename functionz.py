@@ -67,7 +67,7 @@ def insert_user(userid,name,password,email):
 
         cur = conn.cursor()
         print()
-        sql = f"INSERT INTO Users(userid,paymentid,name,pass,email) VALUES('{userid}',NULL,'{name}', '{password}','{email}')"
+        sql = f"INSERT INTO Users(userid,paymentid,name,pass,email) VALUES('{userid}',14004,'{name}', '{password}','{email}')"
         print("Insert user statement:\t" + sql)
         cur.execute(sql)
         #Commits official changes to DB SweetTooth
